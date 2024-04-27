@@ -1,12 +1,22 @@
 package com.krishnadev.jobbackend.JobApplication;
 
+import jakarta.persistence.*;
+
+@Entity
+// @Table(name="job_table")
 public class Job {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // This is the primary key
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
 
+    // Default Constructor - This is needed because entities are objects, that represents the persistent data in relational database.
+    // TODO: WHY DEFAULT CONSTRUCTOR IS NEEDED WHEN WE ARE USING JPA
+    public Job() {
+    }
 
     public Job(String description, Long id, String title, String minSalary, String maxSalary) {
         this.description = description;
