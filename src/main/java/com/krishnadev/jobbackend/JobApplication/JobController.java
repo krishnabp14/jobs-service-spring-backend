@@ -1,5 +1,7 @@
 package com.krishnadev.jobbackend.JobApplication;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,14 +23,30 @@ public class JobController {
     }
 
     @PostMapping("/jobs")
-    public String addJob(@RequestBody Job job) {
-        job.setId(jobId++);
-        JobService.addJob(job);
-        return "Job Added Sucessfully";
+    public ResponseEntity<String> addJob(@RequestBody Job job) {
+        if(job != null) {
+            job.setId(jobId++);
+            JobService.addJob(job);
+            return new ResponseEntity<>("Job Added Sucessfully", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Something went Wrong, Please Try Again", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/jobs/{id}")
-    public Job getJobById(@PathVariable Long id)  {
-        return JobService.getJobById(id);
+    public ResponseEntity<Job> getJobById(@PathVariable Long id)  {
+        Job job = JobService.getJobById(id);
+        if(job != null) {
+            return new ResponseEntity<>(job, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/jobs/{id}")
+    public ResponseEntity<String> deleteJobById(@PathVariable Long id) {
+        String response = JobService.deleteJobById(id);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
