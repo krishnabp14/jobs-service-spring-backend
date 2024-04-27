@@ -6,6 +6,7 @@ import com.krishnadev.jobbackend.Company.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -18,6 +19,25 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Company> getListOfCompanies() {
-        return List.of();
+        return companyRepository.findAll();
+    }
+
+    @Override
+    public boolean UpdateCompanyDetails(Company company, Long id) {
+        Optional<Company> companyDetails = companyRepository.findById(id);
+        if(companyDetails.isPresent()) {
+            Company filteredCompany = companyDetails.get();
+            filteredCompany.setName(company.getName());
+            filteredCompany.setDescription(company.getDescription());
+            companyRepository.save(filteredCompany);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void addCompany(Company company) {
+        companyRepository.save(company);
     }
 }

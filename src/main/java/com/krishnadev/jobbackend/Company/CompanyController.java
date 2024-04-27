@@ -1,8 +1,6 @@
 package com.krishnadev.jobbackend.Company;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,16 @@ public class CompanyController {
     @GetMapping
     public List<Company> getListOfCompanies() {
         return companyService.getListOfCompanies();
+    }
+
+    @PutMapping("/{id}")
+    public boolean UpdateCompanyDetails(@PathVariable Long id, @RequestBody Company company) {
+        return companyService.UpdateCompanyDetails(company, id);
+    }
+
+    @PostMapping
+    public void addCompany(@RequestBody Company company) {
+        companyService.addCompany(company);
     }
 
 }
