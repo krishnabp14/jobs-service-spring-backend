@@ -1,5 +1,6 @@
 package com.krishnadev.jobbackend.Company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.krishnadev.jobbackend.JobApplication.Job;
 import jakarta.persistence.*;
 
@@ -13,7 +14,8 @@ public class Company {
     private String name;
     private String description;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
     // This is for JPA

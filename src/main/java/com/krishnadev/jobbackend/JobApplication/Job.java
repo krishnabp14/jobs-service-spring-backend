@@ -1,5 +1,6 @@
 package com.krishnadev.jobbackend.JobApplication;
 
+import com.krishnadev.jobbackend.Company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,17 @@ public class Job {
     private String description;
     private String minSalary;
     private String maxSalary;
+
+    @ManyToOne
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     // Default Constructor - This is needed because entities are objects, that represents the persistent data in relational database.
     // TODO: WHY DEFAULT CONSTRUCTOR IS NEEDED WHEN WE ARE USING JPA
