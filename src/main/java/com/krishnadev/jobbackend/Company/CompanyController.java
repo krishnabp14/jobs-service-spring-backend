@@ -30,4 +30,15 @@ public class CompanyController {
         companyService.addCompany(company);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteCompanyById(@PathVariable Long id) {
+        boolean companyDeleted = companyService.deleteCompany(id);
+        if(companyDeleted) {
+            return "Company Deleted Successfully";
+        }
+        else {
+            return "Please Try Again To Delete the Company";
+        }
+    }
+
 }
