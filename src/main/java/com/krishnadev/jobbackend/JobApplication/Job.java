@@ -1,5 +1,6 @@
 package com.krishnadev.jobbackend.JobApplication;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.krishnadev.jobbackend.Company.Company;
 import jakarta.persistence.*;
 
